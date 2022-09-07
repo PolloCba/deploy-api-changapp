@@ -155,13 +155,13 @@ const deleteService = async (req, res) => {
       },
     });
     res.status(201).send("Service deleted");
+    const email = "pfhenrychangapp@gmail.com";
+    const asunto = "Eliminacion de Servicio";
+    const mensaje = `Se ha eliminado el servicio exitosamente`;
+    deleteServiceMail.email(email, asunto, mensaje);
   } catch (error) {
     res.status(404).send(error);
   }
-  const email = "pfhenrychangapp@gmail.com";
-  const asunto = "Eliminacion de Servicio";
-  const mensaje = `Se ha eliminado el servicio exitosamente`;
-  deleteServiceMail.email(email, asunto, mensaje);
 };
 
 module.exports = {

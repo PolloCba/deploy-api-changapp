@@ -40,13 +40,13 @@ const deleteCategory = async (req, res) => {
       },
     });
     res.status(200).send("Category deleted");
+    const email = "pfhenrychangapp@gmail.com";
+    const asunto = "Eliminacion de Categoria";
+    const mensaje = `Se ha eliminado la categoria exitosamente`;
+    deleteCategoryMail.email(email, asunto, mensaje);
   } catch (error) {
     res.status(404).send(error);
   }
-  const email = "pfhenrychangapp@gmail.com";
-  const asunto = "Eliminacion de Categoria";
-  const mensaje = `Se ha eliminado la categoria exitosamente`;
-  deleteCategoryMail.email(email, asunto, mensaje);
 };
 
 const searchCategory = async (req, res) => {
@@ -57,14 +57,13 @@ const searchCategory = async (req, res) => {
     });
     res.send(response);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
-
 
 module.exports = {
   getCategories,
   postCategorie,
   deleteCategory,
-  searchCategory
+  searchCategory,
 };

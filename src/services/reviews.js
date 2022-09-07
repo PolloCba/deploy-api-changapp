@@ -34,14 +34,14 @@ const postReviews = async (req, res) => {
     });
     console.log(reviewCreated);
     res.status(201).send("Review created");
+    const asunto = "Nueva Reseña";
+    const mensaje =
+      "Tiene una nueva reseña y calificación de servicio en ChangaApp";
+    reviewMail.email(email, asunto, mensaje);
   } catch (error) {
     res.status(404).send(error);
     console.log(error);
   }
-  const asunto = "Nueva Reseña";
-  const mensaje =
-    "Tiene una nueva reseña y calificación de servicio en ChangaApp";
-  reviewMail.email(email, asunto, mensaje);
 };
 
 const getUserReview = async (req, res) => {

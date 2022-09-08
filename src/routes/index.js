@@ -10,7 +10,7 @@ const {
 
   userLocation,
   adminState,
-
+  deleteUsuario,
 } = require("../services/user");
 const {
   getServices,
@@ -21,7 +21,12 @@ const {
   deleteService,
 } = require("../services/service");
 const { email } = require("../services/Emails/sendEmails");
-const { getCategories, postCategorie, deleteCategory, searchCategory } = require("../services/category");
+const {
+  getCategories,
+  postCategorie,
+  deleteCategory,
+  searchCategory,
+} = require("../services/category");
 const { paymentMethod } = require("../services/payment");
 const {
   getRequest,
@@ -42,7 +47,6 @@ const {
   deleteNotification,
 } = require("../services/notifications");
 
-
 // Importar todos los routers;
 
 const router = Router();
@@ -52,11 +56,11 @@ router.post("/user", register);
 router.get("/user", getUsers);
 router.put("/user/:email", updateUser);
 router.get("/user/:email", filterUser);
-router.put("/users/:id", bannState || adminState)
-router.get("/users/:id", userById)
-router.put('/userr/:id', adminState)
+router.put("/users/:id", bannState || adminState);
+router.get("/users/:id", userById);
+router.put("/userr/:id", adminState);
 router.get("/user", userLocation);
-
+router.delete("/user/:id", deleteUsuario);
 
 //services routes
 router.post("/services", postService);
@@ -69,8 +73,8 @@ router.delete("/services/:id", deleteService);
 //category routes
 router.get("/category", getCategories);
 router.post("/category", postCategorie);
-router.delete('/category/:id', deleteCategory)
-router.get('/category/search', searchCategory)
+router.delete("/category/:id", deleteCategory);
+router.get("/category/search", searchCategory);
 //request routes
 router.get("/request", getRequest);
 router.post("/request", postRequest);

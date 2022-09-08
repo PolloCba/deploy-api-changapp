@@ -1,4 +1,11 @@
-const { Category, Services, User, Reviews, Request, Notification } = require("../db");
+const {
+  Category,
+  Services,
+  User,
+  Reviews,
+  Request,
+  Notification,
+} = require("../db");
 const registerMail = require("./Emails/sendEmails");
 const bannedMail = require("./Emails/sendEmails");
 const desbannedMail = require("./Emails/sendEmails");
@@ -126,26 +133,29 @@ const filterUser = async (req, res) => {
   const { email } = req.params;
   if (email) {
     const users = await User.findAll({
-      include: [{
-        model: Services,
-        as: "services",
-        include: [{
-          model: Category,
-          as: "category",
+      include: [
+        {
+          model: Services,
+          as: "services",
+          include: [
+            {
+              model: Category,
+              as: "category",
+            },
+            {
+              model: Request,
+              as: "request",
+            },
+          ],
         },
         {
           model: Request,
-          as: "request",
-        }]
-      },
-      {
-        model: Request,
-        as: 'requester'
-      },
-      {
-        model: Reviews,
-        as: 'reviews'
-      },
+          as: "requester",
+        },
+        {
+          model: Reviews,
+          as: "reviews",
+        },
       ],
     });
     const filterEmail = users.filter((e) => e.email === email);
@@ -265,6 +275,20 @@ const adminState = async (req, res) => {
   }
 };
 
+const deleteUsuario = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await User.destroy({
+      where: {
+        id,
+      },
+    });
+    res.send("borrado pa");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   register,
   getUsers,
@@ -273,6 +297,6 @@ module.exports = {
   bannState,
   userById,
   userLocation,
-
+  deleteUsuario,
   adminState,
 };
